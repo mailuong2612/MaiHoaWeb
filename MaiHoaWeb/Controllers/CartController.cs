@@ -9,7 +9,7 @@ namespace MaiHoaWeb.Controllers
     public class CartController : Controller
     {
         private MyPhamOnlineFinalEntities db = new MyPhamOnlineFinalEntities();
-        // GET: Cart 
+        // GET: Carttt
         public List<Cart> Laygiohang() 
         {
             List<Cart> lstCart = (List<Cart>)Session["lstCart"];
