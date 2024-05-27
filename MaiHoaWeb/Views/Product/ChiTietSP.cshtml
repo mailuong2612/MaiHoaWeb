@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewBag.Title = "ChiTietSP";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<section class="main-content-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <!-- BSTORE-BREADCRUMB START -->
+                <div class="bstore-breadcrumb">
+                    <a href="index.html">HOMe<span><i class="fa fa-caret-right"></i> </span> </a>
+                    <span> <i class="fa fa-caret-right"> </i> </span>
+                    <a href="/Product/Index"> Sản phẩm </a>
+                    <span> @Model.Name </span>
+                </div>
+                <!-- BSTORE-BREADCRUMB END -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <!-- SINGLE-PRODUCT-DESCRIPTION START -->
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-4 col-xs-12">
+                        <div class="single-product-view">
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="thumbnail_1">
+                                    <div class="single-product-image">
+                                        <img src="@Model.Image" />
+                                        <a class="new-mark-box" href="#">new</a>
+                                        <a class="fancybox" href="@Model.Image" data-fancybox-group="gallery"><span class="btn large-btn">View larger <i class="fa fa-search-plus"></i></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-8 col-xs-12">
+                        <div class="single-product-descirption">
+                            <h2>@Model.Name</h2>
+                            <div class="single-product-social-share">
+                                <ul>
+                                    <li><a href="#" class="twi-link"><i class="fa fa-twitter"></i>Tweet</a></li>
+                                    <li><a href="#" class="fb-link"><i class="fa fa-facebook"></i>Share</a></li>
+                                    <li><a href="#" class="g-plus-link"><i class="fa fa-google-plus"></i>Google+</a></li>
+                                    <li><a href="#" class="pin-link"><i class="fa fa-pinterest"></i>Pinterest</a></li>
+                                </ul>
+                            </div>
+                            <div class="single-product-review-box">
+                                <div class="rating-box">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-empty"></i>
+                                </div>
+                                <div class="read-reviews">
+                                    <a href="#">Read reviews (1)</a>
+                                </div>
+                                <div class="write-review">
+                                    <a href="#">Write a review</a>
+                                </div>
+                            </div>
+                            <div class="single-product-condition"
+                                <p>Condition: <span>New product</span></p>
+                            </div>
+                            <div class="single-product-price">
+                                <h2>@Html.FormatValue(Model.Price, "{0:#,###}") đ</h2>
+                            </div>
+                            <div class="single-product-desc">
+                                <p>@Model.Description</p>
+                                <div class="product-in-stock">
+                                    <p>@Model.Quantity Items<span>In stock</span></p>
+                                </div>
+                            </div>
+                            <div class="single-product-quantity">
+                                <p class="small-title">Quantity</p>
+                                <div class="cart-quantity">
+                                    <div class="cart-plus-minus-button single-qty-btn">
+                                        <input class="cart-plus-minus sing-pro-qty" type="text" name="qtybutton" value="0">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-product-add-cart">
+                                <a class="add-cart-text" title="Add to cart" href="@Url.Action("AddToCart", "Cart", new {productId = Model.Id})">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- SINGLE-PRODUCT-DESCRIPTION END -->
+                <!-- RELATED-PRODUCTS-AREA START -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="left-title-area">
+                            <h2 class="left-title">related products</h2>
+                        </div>
+                    </div>
+                    <div class="related-product-area featured-products-area">
+                        <div class="col-sm-12">
+                            <div class=" row">
+                                <!-- RELATED-CAROUSEL START -->
+                                <div class="related-product">
+                                    <!-- SINGLE-PRODUCT-ITEM START -->
+                                    <!-- SINGLE-PRODUCT-ITEM START -->
+                                </div>
+                                <!-- RELATED-CAROUSEL END -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- RELATED-PRODUCTS-AREA END -->
+            </div>
+            <!-- RIGHT SIDE BAR START -->
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <!-- SINGLE SIDE BAR START -->
+                <div class="single-product-right-sidebar">
+                    <h2 class="left-title">Viewed products</h2>
+                    <ul>
+                        <li>
+                            <a href="#"><img style="width: 80px" src="~/Assets/Images/Product/nuochoa1.png" alt="" /></a>
+                            <div class="r-sidebar-pro-content">
+                                <h5><a href="#">Nước hoa</a></h5>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#"><img style="width: 80px" src="~/Assets/Images/Product/serum1.png" alt="" /></a>
+                            <div class="r-sidebar-pro-content">
+                                <h5><a href="#">Serum</a></h5>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- SINGLE SIDE BAR END -->
+                <!-- SINGLE SIDE BAR START -->
+                <div class="single-product-right-sidebar clearfix">
+                    <h2 class="left-title">Tags </h2>
+                    <div class="category-tag">
+                        <a href="#">Son</a>
+                        <a href="#">Nước hoa</a>
+                        <a href="#">trang điểm</a>
+                    </div>
+                </div>
+                <!-- SINGLE SIDE BAR END -->
+                <!-- SINGLE SIDE BAR START -->
+
+            </div>
+            <!-- SINGLE SIDE BAR END -->
+        </div>
+    </div>
+</section>
+<!-- MAIN-CONTENT-SECTION END -->

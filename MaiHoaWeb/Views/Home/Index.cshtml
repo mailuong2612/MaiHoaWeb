@@ -1,0 +1,55 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<!-- MAIN-MENU-AREA END -->
+<!-- MAIN-CONTENT-SECTION START -->
+<section class="main-content-section">
+    <div class="container">
+        <div class="row">
+            <!-- MAIN-SLIDER-AREA START -->
+            <div class="main-slider-area">
+                <!-- SLIDER-AREA START -->
+                @Html.Action("Slider", "Layout")
+                <!-- SLIDER-AREA END -->
+                <!-- SLIDER-RIGHT START -->
+                @Html.Action("SliderRight", "Layout")
+                <!-- SLIDER-RIGHT END -->
+            </div>
+            <!-- MAIN-SLIDER-AREA END -->
+        </div>
+        <!-- TOW-COLUMN-PRODUCT START -->
+        <div class="row tow-column-product">
+            @Html.Action("NewProduct", "Layout")
+            @Html.Action("HotProduct", "Layout")
+        </div>
+        <!-- TOW-COLUMN-PRODUCT END -->
+        <div class="row">
+            <!-- ADD-TWO-BY-ONE-COLUMN START -->
+            <div class="add-two-by-one-column">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                    <div class="tow-column-add zoom-img">
+                        <a href="#"><img src="~/Assets/Images/Product/Banner.jpg" style="width:5000px" alt="shope-add" /></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="one-column-add zoom-img">
+                        <a href="#"><img src="~/Assets/Images/Product/Banner-right.jpg" style="height: 250px" alt="shope-add" /></a>
+                    </div>
+                </div>
+            </div>
+            <!-- ADD-TWO-BY-ONE-COLUMN END -->
+        </div>
+        <div class="row">
+            <!-- BESTSELLER-PRODUCTS-AREA START -->
+            @Html.Action("BestSeller", "Layout")
+            <!-- BESTSELLER-PRODUCTS-AREA END -->
+        </div>
+
+    </div>
+</section>
+<!-- MAIN-CONTENT-SECTION END -->
+<!-- LATEST-NEWS-AREA START -->

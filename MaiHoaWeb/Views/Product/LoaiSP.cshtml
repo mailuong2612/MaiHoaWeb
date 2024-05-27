@@ -1,0 +1,14 @@
+﻿@model IEnumerable<MaiHoaWeb.Models.tb_Category>
+
+@foreach (var item in Model)
+{
+    <li>
+        <label class="cheker">
+            <input type="checkbox" name="categories" />
+            <span></span>
+        </label>
+        <a href="@Url.Action("SPTheoLoai", "Product", new { id = item.Id })">@item.Name</a>
+    </li>
+}
+
+

@@ -1,0 +1,452 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MyPhamOnlineFinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tb_Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="tb_Customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="150" />
+          <Property Name="MatKhau" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tb_Oder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="150" />
+          <Property Name="TotalAmount" Type="float" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="IsPaid" Type="bit" />
+        </EntityType>
+        <EntityType Name="tb_OrderDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OderId" Type="int" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="Price" Type="float" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="ThanhTien" Type="float" />
+        </EntityType>
+        <EntityType Name="tb_Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="3000" />
+          <Property Name="ShortDescription" Type="nvarchar" MaxLength="150" />
+          <Property Name="Image" Type="nvarchar" MaxLength="500" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Price" Type="float" />
+          <Property Name="PriceSale" Type="float" />
+        </EntityType>
+        <EntityType Name="tb_Slider">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="150" />
+          <Property Name="Image" Type="nvarchar" MaxLength="500" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="tb_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fullname" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_tb_Oder_tb_Customer">
+          <End Role="tb_Customer" Type="Self.tb_Customer" Multiplicity="0..1" />
+          <End Role="tb_Oder" Type="Self.tb_Oder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Customer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_Oder">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_OrderDetail_tb_Oder">
+          <End Role="tb_Oder" Type="Self.tb_Oder" Multiplicity="0..1" />
+          <End Role="tb_OrderDetail" Type="Self.tb_OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Oder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_OrderDetail">
+              <PropertyRef Name="OderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_OrderDetail_tb_Product">
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="0..1" />
+          <End Role="tb_OrderDetail" Type="Self.tb_OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_OrderDetail">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Product_tb_Category">
+          <End Role="tb_Category" Type="Self.tb_Category" Multiplicity="0..1" />
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_Product">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyPhamOnlineFinalModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Category" EntityType="Self.tb_Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Customer" EntityType="Self.tb_Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Oder" EntityType="Self.tb_Oder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_OrderDetail" EntityType="Self.tb_OrderDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Product" EntityType="Self.tb_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Slider" EntityType="Self.tb_Slider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_User" EntityType="Self.tb_User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tb_Oder_tb_Customer" Association="Self.FK_tb_Oder_tb_Customer">
+            <End Role="tb_Customer" EntitySet="tb_Customer" />
+            <End Role="tb_Oder" EntitySet="tb_Oder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_OrderDetail_tb_Oder" Association="Self.FK_tb_OrderDetail_tb_Oder">
+            <End Role="tb_Oder" EntitySet="tb_Oder" />
+            <End Role="tb_OrderDetail" EntitySet="tb_OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_OrderDetail_tb_Product" Association="Self.FK_tb_OrderDetail_tb_Product">
+            <End Role="tb_Product" EntitySet="tb_Product" />
+            <End Role="tb_OrderDetail" EntitySet="tb_OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Product_tb_Category" Association="Self.FK_tb_Product_tb_Category">
+            <End Role="tb_Category" EntitySet="tb_Category" />
+            <End Role="tb_Product" EntitySet="tb_Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyPhamOnlineFinalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tb_Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_Product" Relationship="Self.FK_tb_Product_tb_Category" FromRole="tb_Category" ToRole="tb_Product" />
+        </EntityType>
+        <EntityType Name="tb_Customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="MatKhau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_Oder" Relationship="Self.FK_tb_Oder_tb_Customer" FromRole="tb_Customer" ToRole="tb_Oder" />
+        </EntityType>
+        <EntityType Name="tb_Oder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="CustomerName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="TotalAmount" Type="Double" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="IsPaid" Type="Boolean" />
+          <NavigationProperty Name="tb_Customer" Relationship="Self.FK_tb_Oder_tb_Customer" FromRole="tb_Oder" ToRole="tb_Customer" />
+          <NavigationProperty Name="tb_OrderDetail" Relationship="Self.FK_tb_OrderDetail_tb_Oder" FromRole="tb_Oder" ToRole="tb_OrderDetail" />
+        </EntityType>
+        <EntityType Name="tb_OrderDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OderId" Type="Int32" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="ThanhTien" Type="Double" />
+          <NavigationProperty Name="tb_Oder" Relationship="Self.FK_tb_OrderDetail_tb_Oder" FromRole="tb_OrderDetail" ToRole="tb_Oder" />
+          <NavigationProperty Name="tb_Product" Relationship="Self.FK_tb_OrderDetail_tb_Product" FromRole="tb_OrderDetail" ToRole="tb_Product" />
+        </EntityType>
+        <EntityType Name="tb_Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
+          <Property Name="ShortDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="PriceSale" Type="Double" />
+          <NavigationProperty Name="tb_Category" Relationship="Self.FK_tb_Product_tb_Category" FromRole="tb_Product" ToRole="tb_Category" />
+          <NavigationProperty Name="tb_OrderDetail" Relationship="Self.FK_tb_OrderDetail_tb_Product" FromRole="tb_Product" ToRole="tb_OrderDetail" />
+        </EntityType>
+        <EntityType Name="tb_Slider">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tb_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_tb_Product_tb_Category">
+          <End Role="tb_Category" Type="Self.tb_Category" Multiplicity="0..1" />
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_Product">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Oder_tb_Customer">
+          <End Role="tb_Customer" Type="Self.tb_Customer" Multiplicity="0..1" />
+          <End Role="tb_Oder" Type="Self.tb_Oder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Customer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_Oder">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_OrderDetail_tb_Oder">
+          <End Role="tb_Oder" Type="Self.tb_Oder" Multiplicity="0..1" />
+          <End Role="tb_OrderDetail" Type="Self.tb_OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Oder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_OrderDetail">
+              <PropertyRef Name="OderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_OrderDetail_tb_Product">
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="0..1" />
+          <End Role="tb_OrderDetail" Type="Self.tb_OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_OrderDetail">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyPhamOnlineFinalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="tb_Category" EntityType="Self.tb_Category" />
+          <EntitySet Name="tb_Customer" EntityType="Self.tb_Customer" />
+          <EntitySet Name="tb_Oder" EntityType="Self.tb_Oder" />
+          <EntitySet Name="tb_OrderDetail" EntityType="Self.tb_OrderDetail" />
+          <EntitySet Name="tb_Product" EntityType="Self.tb_Product" />
+          <EntitySet Name="tb_Slider" EntityType="Self.tb_Slider" />
+          <EntitySet Name="tb_User" EntityType="Self.tb_User" />
+          <AssociationSet Name="FK_tb_Product_tb_Category" Association="Self.FK_tb_Product_tb_Category">
+            <End Role="tb_Category" EntitySet="tb_Category" />
+            <End Role="tb_Product" EntitySet="tb_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Oder_tb_Customer" Association="Self.FK_tb_Oder_tb_Customer">
+            <End Role="tb_Customer" EntitySet="tb_Customer" />
+            <End Role="tb_Oder" EntitySet="tb_Oder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_OrderDetail_tb_Oder" Association="Self.FK_tb_OrderDetail_tb_Oder">
+            <End Role="tb_Oder" EntitySet="tb_Oder" />
+            <End Role="tb_OrderDetail" EntitySet="tb_OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_OrderDetail_tb_Product" Association="Self.FK_tb_OrderDetail_tb_Product">
+            <End Role="tb_Product" EntitySet="tb_Product" />
+            <End Role="tb_OrderDetail" EntitySet="tb_OrderDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyPhamOnlineFinalModelStoreContainer" CdmEntityContainer="MyPhamOnlineFinalEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="MyPhamOnlineFinalModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Category">
+            <EntityTypeMapping TypeName="MyPhamOnlineFinalModel.tb_Category">
+              <MappingFragment StoreEntitySet="tb_Category">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Customer">
+            <EntityTypeMapping TypeName="MyPhamOnlineFinalModel.tb_Customer">
+              <MappingFragment StoreEntitySet="tb_Customer">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Oder">
+            <EntityTypeMapping TypeName="MyPhamOnlineFinalModel.tb_Oder">
+              <MappingFragment StoreEntitySet="tb_Oder">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_OrderDetail">
+            <EntityTypeMapping TypeName="MyPhamOnlineFinalModel.tb_OrderDetail">
+              <MappingFragment StoreEntitySet="tb_OrderDetail">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OderId" ColumnName="OderId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Product">
+            <EntityTypeMapping TypeName="MyPhamOnlineFinalModel.tb_Product">
+              <MappingFragment StoreEntitySet="tb_Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PriceSale" ColumnName="PriceSale" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Slider">
+            <EntityTypeMapping TypeName="MyPhamOnlineFinalModel.tb_Slider">
+              <MappingFragment StoreEntitySet="tb_Slider">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_User">
+            <EntityTypeMapping TypeName="MyPhamOnlineFinalModel.tb_User">
+              <MappingFragment StoreEntitySet="tb_User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,174 @@
+﻿@using MaiHoaWeb.Models;
+@model List<Cart>
+@{
+    ViewBag.Title = "Dathang";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <!-- SHOPPING-CART SUMMARY START -->
+        <h2 class="page-title">Thông tin đặt hàng</h2>
+        <!-- SHOPPING-CART SUMMARY END -->
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <!-- CART TABLE_BLOCK START -->
+        <div class="table-responsive">
+            <!-- TABLE START -->
+            <table class="table table-bordered" id="cart-summary">
+                <!-- TABLE HEADER START -->
+                <thead>
+                    <tr>
+                        <th class="cart-product">Product</th>
+                        <th class="cart-description">Description</th>
+
+                        <th class="cart-unit text-right">Unit price</th>
+                        <th class="cart_quantity text-center">Quantity</th>
+
+                        <th class="cart-total text-right">Total</th>
+                    </tr>
+                </thead>
+                <!-- TABLE HEADER END -->
+                <!-- TABLE BODY START -->
+                <tbody>
+                    <!-- SINGLE CART_ITEM START -->
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="cart-product">
+                                <a href="#"><img alt="Blouse" src="@item.Image"></a>
+                            </td>
+                            <td class="cart-description">
+                                <p class="product-name"><a href="#">@item.Name</a></p>
+                                <small>@item.Name</small>
+                            </td>
+                            @using (Html.BeginForm("UpdateCart", "Cart", new { @iMaSp = item.producId }))
+                            {
+                                <td class="cart-unit">
+                                    <ul class="price text-right">
+                                        <li class="price">@Html.FormatValue(item.Price, "{0:#,###}") đ</li>
+                                    </ul>
+                                </td>
+                                <td class="cart_quantity text-center">
+                                    <div class="">
+                                        <text>@item.quantity</text>
+                                    </div>
+                                </td>
+
+                                <td class="cart-total">
+                                    <span class="price">@Html.FormatValue(item.Price * item.quantity, "{0:#,###}") đ</span>
+                                </td>
+                            }
+                        </tr>
+                    }
+
+                    <!-- SINGLE CART_ITEM END -->
+                </tbody>
+                <!-- TABLE BODY END -->
+                <!-- TABLE FOOTER START -->
+                <tfoot>
+                    <tr class="cart-total-price">
+                        <td class="cart_voucher" colspan="3" rowspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-right" colspan="3">Total shipping</td>
+                        <td id="total_shipping" class="price" colspan="1">0.00đ</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right" colspan="3">Total vouchers (tax excl.)</td>
+                        <td class="price" colspan="1">0.00đ </td>
+                    </tr>
+                    <tr>
+                        <td class="total-price-container text-right" colspan="3">
+                            <span>Total</span>
+                        </td>
+                        <td id="total-price-container" class="price" colspan="1">
+                            <span id="total-price">@Html.FormatValue(Model.Sum(x => x.Price * x.quantity), "{0:#,###}")</span>
+                        </td>
+                    </tr>
+                </tfoot>
+                <!-- TABLE FOOTER END -->
+            </table>
+            <!-- TABLE END -->
+        </div>
+        <!-- CART TABLE_BLOCK END -->
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <!-- RETURNE-CONTINUE-SHOP START -->
+
+        <div class="returne-continue-shop">
+            <a href="/Cart/Index/" class="procedtocheckout">Trở lại giỏ hàng<i class="fa fa-chevron-right"></i></a>
+        </div>
+
+        <!-- RETURNE-CONTINUE-SHOP END -->
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<h2 class="page-title">Thông khách hàng </h2>
+@{
+    tb_Customer kh = (tb_Customer)Session["Taikhoan"];
+}
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <!-- CART TABLE_BLOCK START -->
+    <div class="table-responsive">
+        <!-- TABLE START -->
+        <table class="table table-bordered" id="cart-summary">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)
+                <tbody>
+                    <!-- SINGLE CART_ITEM START -->
+
+                    <tr style="height: 40px">
+                        <td>Họ tên khách hàng:</td>
+                        <td style="font-weight: bold">@kh.CustomerName</td>
+                    </tr>
+                    <tr style="height: 40px">
+                        <td>Địa chỉ:</td>
+                        <td style="font-weight: bold">@kh.Address</td>
+                    </tr>
+                    <tr style="height: 40px">
+                        <td>Điện thoại:</td>
+                        <td style="font-weight: bold">@kh.Phone</td>
+                    </tr>
+                    <tr style="height:40px">
+                        <td>Ngày đặt:</td>
+                        <td style="font-weight:bold">@DateTime.Now.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                    <tr style="height:40px">
+                        <td>Ngày giao hàng:</td>
+                        <td style="font-weight:bold">@DateTime.Now.AddHours(72).ToString("dd/MM/yyyy")</td>
+                    </tr>
+
+                    <tr style="height: 40px">
+                        <td></td>
+                        <td>
+                            <button type="submit" class="btn btn-success">Thanh toán khi nhận hàng</button>
+                            <button class="btn btn-light">
+                                <a href="@Url.Action("vnpay_pay.aspx", "vnpay_pay.aspx")">Thanh toán qua VNPay</a>
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- SINGLE CART_ITEM END -->
+                </tbody>
+            }
+
+        </table>
+        <!-- TABLE END -->
+    </div>
+    <!-- CART TABLE_BLOCK END -->
+</div>
+<table align="center">
+
+    }
+</table>
+
+

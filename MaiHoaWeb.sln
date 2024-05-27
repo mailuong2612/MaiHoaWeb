@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.34031.82
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaiHoaWeb", "MaiHoaWeb\MaiHoaWeb.csproj", "{B78592E6-7CF7-4F75-8A89-DB9C420FAAEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B78592E6-7CF7-4F75-8A89-DB9C420FAAEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B78592E6-7CF7-4F75-8A89-DB9C420FAAEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B78592E6-7CF7-4F75-8A89-DB9C420FAAEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B78592E6-7CF7-4F75-8A89-DB9C420FAAEA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {14575F8C-8766-411C-B871-2ED42A16A82D}
+	EndGlobalSection
+EndGlobal

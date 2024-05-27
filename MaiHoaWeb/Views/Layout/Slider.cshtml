@@ -1,0 +1,17 @@
+﻿@model List<MaiHoaWeb.Models.tb_Slider>
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+    <div class="slider-area">
+        <div id="wrapper">
+
+            <div class="slider-wrapper">
+                <div id="mainSlider" class="nivoSlider">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <img src="@Model[i].Image" alt="main slider" title="#htmlcaption" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

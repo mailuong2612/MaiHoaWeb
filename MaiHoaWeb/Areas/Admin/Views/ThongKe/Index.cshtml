@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6 col-lg-3">
+        <div class="widget-small warning coloured-icon">
+            <i class='icon fa-3x bx bxs-shopping-bag-alt'></i>
+            <div class="info">
+                <h4>Tổng đơn hàng</h4>
+                <p><b>@ViewBag.CountOD</b></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+        <div class="widget-small warning coloured-icon">
+            <i class='icon fa-3x bx bxs-tag-x'></i>
+            <div class="info">
+                <h4>Hết hàng</h4>
+                <p><b>@ViewBag.TotalOutOfStockProducts</b></p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-6 col-lg-3">
+        <div class="widget-small info coloured-icon">
+            <i class='icon bx bxs-purchase-tag-alt fa-3x'></i>
+            <div class="info">
+                <h4>Tổng sản phẩm</h4>
+                <p><b>@ViewBag.totalsp</b></p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-6 col-lg-3">
+        <div class="widget-small primary coloured-icon">
+            <i class='icon fa-3x bx bxs-chart'></i>
+            <div class="info">
+                <h4>Tổng thu nhập</h4>
+                <p><b>@String.Format("{0:N0}", ViewBag.Count) đ</b></p>
+            </div>
+        </div>
+    </div>
+
+</div>
